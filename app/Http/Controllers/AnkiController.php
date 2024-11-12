@@ -11,12 +11,31 @@ use App\Services\OpenAIService;
 use App\Services\CardGeneratorService;
 use App\Services\CardExporterService;
 
+/**
+ * Class AnkiController
+ *
+ * This controller handles the interaction between the application and the Anki flashcard system.
+ * It provides methods for converting notes, generating flashcards, previewing, downloading,
+ * and syncing with Anki.
+ *
+ * Properties:
+ * @property OpenAIService $openAIService - Service for interacting with OpenAI API.
+ * @property CardGeneratorService $cardGeneratorService - Service for generating flashcards.
+ * @property CardExporterService $cardExporterService - Service for exporting flashcards.
+ */
 class AnkiController extends Controller
 {
     protected $openAIService;
     protected $cardGeneratorService;
     protected $cardExporterService;
 
+    /**
+     * AnkiController constructor.
+     *
+     * @param OpenAIService $openAIService - Service for OpenAI API interactions.
+     * @param CardGeneratorService $cardGeneratorService - Service for generating flashcards.
+     * @param CardExporterService $cardExporterService - Service for exporting flashcards.
+     */
     public function __construct(
         OpenAIService $openAIService,
         CardGeneratorService $cardGeneratorService,
@@ -27,6 +46,11 @@ class AnkiController extends Controller
         $this->cardExporterService = $cardExporterService;
     }
 
+    /**
+     * Clears the session cards and returns the convert view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function convert()
     {
         session()->forget('cards');
@@ -34,6 +58,12 @@ class AnkiController extends Controller
         return view('convert');
     }
 
+    /**
+     * Generates flashcards based on the provided notes.
+     *
+     * @param Request $request - The incoming request containing notes.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function generate(Request $request)
     {
         $notes = $request->input('notes');
@@ -50,12 +80,23 @@ class AnkiController extends Controller
         return redirect()->route('preview');
     }
 
+    /**
+     * Transforms the input notes into an array.
+     *
+     * @param string $notes - The notes to transform.
+     * @return array
+     */
     private function transformNotes(string $notes): array
     {
         return explode("\n", $notes);
     }
 
-
+    /**
+     * Cleans the response from OpenAI by trimming and formatting it.
+     *
+     * @param string $response - The raw response from OpenAI.
+     * @return string
+     */
     private function cleanResponse(string $response): string
     {
         $jsonResponse = trim($response);
@@ -67,6 +108,12 @@ class AnkiController extends Controller
         return $jsonResponse;
     }
 
+    /**
+     * Previews the generated flashcards.
+     *
+     * @param Request $request - The incoming request.
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function preview(Request $request)
     {
         $cards = session('cards', []);
@@ -78,6 +125,12 @@ class AnkiController extends Controller
         return view('preview', ['cards' => $cards]);
     }
 
+    /**
+     * Downloads the flashcards as a JSON file.
+     *
+     * @param Request $request - The incoming request.
+     * @return \Illuminate\Http\Response
+     */
     public function downloadAsJSON(Request $request)
     {
         $cards = session('cards', []);
@@ -102,6 +155,12 @@ class AnkiController extends Controller
         ]);
     }
 
+    /**
+     * Syncs the generated flashcards with Anki.
+     *
+     * @param Request $request - The incoming request.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function syncWithAnki(Request $request)
     {
         $cards = session('cards', []);
@@ -121,6 +180,12 @@ class AnkiController extends Controller
         }
     }
 
+    /**
+     * Sends the flashcards to Anki.
+     *
+     * @param array $cards - The flashcards to send.
+     * @return array
+     */
     private function sendToAnki($cards)
     {
         $deckName = 'Ankicito';
@@ -142,6 +207,12 @@ class AnkiController extends Controller
         ];
     }
 
+    /**
+     * Checks if a specific deck exists in Anki.
+     *
+     * @param string $deckName - The name of the deck to check.
+     * @return bool
+     */
     private function deckExists($deckName)
     {
         $payload = [
@@ -155,6 +226,12 @@ class AnkiController extends Controller
         return in_array($deckName, $decks);
     }
 
+    /**
+     * Creates a new deck in Anki.
+     *
+     * @param string $deckName - The name of the deck to create.
+     * @return void
+     */
     private function createDeck($deckName)
     {
         $payload = [
@@ -168,6 +245,14 @@ class AnkiController extends Controller
         Http::post("http://localhost:8765", $payload);
     }
 
+    /**
+     * Creates a new card in Anki.
+     *
+     * @param string $deckName - The name of the deck.
+     * @param string $front - The front content of the card.
+     * @param string $back - The back content of the card.
+     * @return array|\Illuminate\Http\JsonResponse
+     */
     private function createAnkiCard($deckName, $front, $back)
     {
         $payload = [
