@@ -4,33 +4,33 @@
 
 ## ✨ Características
 
-- ⏳ **Ahorro de tiempo**: Transforma cualquier texto en tarjetas de **Anki**, ahorrándote horas de creación manual.
-- 🔄 **Generación automática de tarjetas**: Convierte notas clave en tarjetas de estudio en cuestión de segundos.
+- 🕒 **Ahorro de tiempo**: Transforma cualquier texto en tarjetas de **Anki**, ahorrándote horas de creación manual.
+- 🤖 **Generación automática de tarjetas**: Convierte notas clave en tarjetas de estudio en cuestión de segundos.
 - 🔗 **Integración con Anki**: Ankicito permite la importación automática de tarjetas generadas con un solo clic, mejorando el flujo de trabajo y la experiencia de estudio.
 
-## 🛠️ Funcionalidades principales
+## ⭐ Funcionalidades principales
 
-1. 📝 **Apunta**: Registra tus notas clave fácilmente dentro de la app.
+1. ✍️ **Apunta**: Registra tus notas clave fácilmente dentro de la app.
 2. 🔄 **Genera**: Genera tarjetas de estudio contextualizadas para **Anki**.
-3. 📚 **Estudia**: Mejora tu aprendizaje usando las tarjetas en **Anki**.
+3. 🎯 **Estudia**: Mejora tu aprendizaje usando las tarjetas en **Anki**.
 
-## 🚀 Tecnologías usadas
+## 💻 Tecnologías usadas
 
-- **Backend**: PHP con Laravel
-- **Integración con Anki**: [AnkiConnect](https://foosoft.net/projects/anki-connect/) (API para interactuar con **Anki**)
-- **Infraestructura**: AWS (con servicios como EC2, Lambda, Lightsail, etc.)
-- **Contenedores**: Docker (opcional, para contenerizar la app)
+- 🖥️ **Backend**: PHP con Laravel
+- 🔗 **Integración con Anki**: [AnkiConnect](https://foosoft.net/projects/anki-connect/) (API para interactuar con **Anki**)
+- ☁️ **Infraestructura**: AWS (con servicios como EC2, Lambda, Lightsail, etc.)
+- 🐳 **Contenedores**: Docker (opcional, para contenerizar la app)
 
 ## 📦 Requisitos
 
 ### 🖥️ Requisitos del sistema
 
-- **PHP** 8.0 o superior.
-- **Composer** para la gestión de dependencias.
-- **Docker** (opcional, para contenedores).
-- **Cuenta de Anki** (para usar la integración con **AnkiConnect**).
+- 🐘 **PHP** 8.0 o superior.
+- 🛠️ **Composer** para la gestión de dependencias.
+- 🐳 **Docker** (opcional, para contenedores).
+- 🔐 **Cuenta de Anki** (para usar la integración con **AnkiConnect**).
 
-### 💻 Requisitos de software
+### ⚙️ Requisitos de software
 
 1. **Instalación de PHP y Composer**:
     - Descarga **PHP** desde [aquí](https://www.php.net/downloads).
@@ -39,7 +39,7 @@
 2. **Instalación de Docker** (opcional):
     - Si deseas usar contenedores, instala **Docker** desde [aquí](https://www.docker.com/products/docker-desktop).
 
-## 🛠️ Instalación
+## 🔧 Instalación
 
 1. Clona el repositorio de Ankicito:
     ```bash
@@ -54,10 +54,69 @@
     composer install
     ```
 4. Configura tus variables de entorno en el archivo `.env` (consulta el archivo `.env.example` para referencia).
+
 5. Inicia el servidor de desarrollo:
     ```bash
     php artisan serve
     ```
+
+## ⚡ Configuración de **AnkiConnect**
+
+Para que **Ankicito** funcione correctamente con **Anki**, es necesario configurar **AnkiConnect** para permitir solicitudes desde la URL donde estará desplegado. Sigue estos pasos para realizar la configuración:
+
+1. Localiza el archivo `config.json` de **AnkiConnect** en tu sistema.
+
+    El archivo config.json se encuentra en el directorio de datos de AnkiConnect en tu sistema. Aquí te indicamos las ubicaciones comunes según tu sistema operativo. Si tienes dudas adicionales, consulta la documentación oficial.
+    
+    - Para Windows: 
+    ```bash
+    %APPDATA%\Anki2\addons21\2055492159\config.json
+    ```
+    
+    - Para Mac: 
+    ```bash
+    ~/Library/Application Support/Anki2/addons21/2055492159/config.json
+    ```
+    
+    - Para Linux: 
+    ```bash
+    ~/.local/share/Anki2/addons21/2055492159/config.json
+    ```    
+
+2. Configura el archivo config.json:
+   
+    Una vez localices el archivo, abrelo y asegúrate de que tenga la siguiente configuración. Recuerda ajustar la URL según tu entorno de desarrollo o producción:
+
+   - Para pruebas locales (`localhost`):
+     ```json
+     {
+         "apiKey": null,
+         "apiLogPath": null,
+         "ignoreOriginList": [],
+         "webBindAddress": "127.0.0.1",
+         "webBindPort": 8765,
+         "webCorsOriginList": [
+             "http://localhost:8000"
+         ]
+     }
+     ```
+   - Para desarrollo (por ejemplo, `dev.ankicito.modavidc.com`):
+     ```json
+     {
+         "apiKey": null,
+         "apiLogPath": null,
+         "ignoreOriginList": [],
+         "webBindAddress": "127.0.0.1",
+         "webBindPort": 8765,
+         "webCorsOriginList": [
+             "dev.ankicito.modavidc.com"
+         ]
+     }
+     ```
+
+3. Guarda los cambios y ¡Listo! 🎉
+
+Con esto, AnkiConnect debería estar correctamente configurado para que Ankicito pueda interactuar con Anki.
 
 ## ☁️ Despliegue en AWS
 
