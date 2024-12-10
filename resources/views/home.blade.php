@@ -5,7 +5,7 @@
 @section('content')
 <!-- Hero Section -->
 <section class="bg-blue-600 text-white text-center py-16">
-    <div class="container mx-auto">
+    <div class="container mx-auto pr-2 pl-2">
         <div class="mb-16 flex flex-col items-center" style="margin-top: -50px;">
             <span>⭐ ⭐ ⭐ ⭐ ⭐ </span>
             <span>Ayudando a los estudiantes a ahorrar horas en sus estudios.</span>
@@ -15,9 +15,9 @@
         <h1 class="text-4xl font-bold mb-4">
             El Generador de Tarjetas de Estudio AI #1 para Estudiantes
         </h1>
-        <p class="text mb-12">
+        <p class="text mb-12 pr-4 pl-4">
             Ahorra miles de horas de estudio convirtiendo tus notas de clase en tarjetas de Anki con un solo clic.</br>
-            ¡Apunta, genera y estudia de manera más eficiente!
+            ¡<span style="font-weight: bold; color: #fbbf24">Apunta</span>, <span style="font-weight: bold; color: #fbbf24">genera</span> y <span style="font-weight: bold; color: #fbbf24">estudia</span> de manera más eficiente!
         </p>
         <a href="{{ route('convert') }}" class="bg-yellow-500 text-white hover:bg-yellow-400 py-3 px-8 rounded-full text-lg font-semibold">
             🤖 ¡Genera Tus Tarjetas Ahora!
