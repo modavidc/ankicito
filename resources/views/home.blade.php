@@ -10,12 +10,12 @@
             <span>⭐ ⭐ ⭐ ⭐ ⭐ </span>
             <span>Ayudando a los estudiantes a ahorrar horas en sus estudios.</span>
         </div>
-        <img src="{{ asset('android-chrome-192x192.png') }}" alt="Texto" class="mb-4 mx-auto">
+        <img src="{{ asset('android-chrome-192x192.png') }}" alt="Texto" class="w-24 h-24 mb-4 mx-auto">
 
         <h1 class="text-4xl font-bold mb-4">
             El Generador de Tarjetas de Estudio AI #1 para Estudiantes
         </h1>
-        <p class="text-xl mb-12">
+        <p class="text mb-12">
             Ahorra miles de horas de estudio convirtiendo tus notas de clase en tarjetas de Anki con un solo clic.</br>
             ¡Apunta, genera y estudia de manera más eficiente!
         </p>
@@ -23,26 +23,26 @@
             🤖 ¡Genera Tus Tarjetas Ahora!
         </a>
         <div class="flex flex-col items-center mt-10">
-            <div class="flex space-x-4 mb-4">
+            <!-- <div class="flex space-x-4 mb-4">
                 <img src="{{ asset('text-icon.png') }}" alt="Text" class="w-8 h-8">
+                <img src="{{ asset('word-icon.png') }}" alt="Word" class="w-8 h-8">
                 <img src="{{ asset('pdf-icon.png') }}" alt="PDF" class="w-8 h-8">
                 <img src="{{ asset('ppt-icon.png') }}" alt="PowerPoint" class="w-8 h-8">
-                <img src="{{ asset('word-icon.png') }}" alt="Word" class="w-8 h-8">
                 <img src="{{ asset('excel-icon.png') }}" alt="Excel" class="w-8 h-8">
                 <img src="{{ asset('png-icon.png') }}" alt="PNG" class="w-8 h-8">
                 <img src="{{ asset('youtube-icon.png') }}" alt="YouTube" class="w-8 h-8">
-            </div>
+            </div> -->
             <ul class="text-center mt-4">
                 <li>🌟 <strong>El generador #1 de tarjetas de memorias que podrás encontrar.</strong></li>
-                <li>🎉 <strong>A más de 10 estudiantes ya les encanta.</strong> </li>
-                <li>⏳ <strong>Ahorra horas creando tarjetas de Anki</strong> </li>
+                <li>🎉 <strong>A 2 estudiantes ya les encanta.</strong> </li>
+                <li>⏳ <strong>Ahorra horas creando tarjetas de Anki.</strong> </li>
             </ul>
         </div>
     </div>
 </section>
 
 <!-- How It Works -->
-<section class="py-32">
+<section class="py-12 px-12">
     <div class="container mx-auto text-center">
         <h2 class="text-3xl font-bold mb-8">
             Convierte tus Notas en Tarjetas de Estudio de Anki en Segundos
@@ -54,17 +54,17 @@
 
         <div class="grid md:grid-cols-3 gap-8">
             <div class="p-4">
-                <img src="{{ asset('text-icon.png') }}" alt="Texto" class="mb-4 mx-auto w-36 h-36">
+                <img src="{{ asset('text-icon.png') }}" alt="Texto" class="mb-4 mx-auto w-24 h-24">
                 <h3 class="text-xl font-semibold">Texto</h3>
                 <p class="text-gray-600">¡Simplemente pega tu texto y genera las tarjetas al instante!</p>
             </div>
             <div class="p-4">
-                <img src="{{ asset('word-icon.png') }}" alt="Word" class="mb-4 mx-auto w-36 h-36">
+                <img src="{{ asset('word-icon.png') }}" alt="Word" class="mb-4 mx-auto w-24 h-24">
                 <h3 class="text-xl font-semibold">Word</h3>
                 <p class="text-gray-600">Convierte tus documentos de Word fácilmente en tarjetas de estudio con procesamiento AI.</p>
             </div>
             <div class="p-4">
-                <img src="{{ asset('pdf-icon.png') }}" alt="PDF" class="mb-4 mx-auto w-36 h-36">
+                <img src="{{ asset('pdf-icon.png') }}" alt="PDF" class="mb-4 mx-auto w-24 h-24">
                 <h3 class="text-xl font-semibold">PDF</h3>
                 <p class="text-gray-600">Convierte tus notas de clase y archivos PDF directamente en tarjetas de Anki.</p>
             </div>
@@ -74,3 +74,14 @@
 
 <!-- Additional sections can be added below as needed -->
 @endsection
+
+@push('scripts')
+<script>
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburgerButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
+@endpush
